@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+ 
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- the three things that jQuery Mobile needs to work -->
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<style>
+	
+	#back{
+		
+		
+		background-color: black;
+		
+		
+	
+	}
+	
+	#position{
+		
+		
+		
+		
+		
+		
+		position:absolute; left:25%; top:30%;"
+	}
+	
+	
+	.centeredGradient {
+  background-image:
+    linear-gradient(70deg,
+       #457B9D 30%,
+       #E63946 60%
+		
+    );
+		opacity: 0.45;
+}
+	
+	h1{
+		
+		
+		
+		color: white;
+	}
+	.footer-menu a {
+  background-color: #333 !important;
+}
+
+.footer-menu a:hover {
+  background-color: #df3a3a !important;
+}
+
+/* Explore Page */
+	
+	</style>
+</head>
+  
+<body>
+
+	<!-- This is page AR-->
+		<div data-role="page" id="PageV">
+		<!-- jQuery Mobile page content goes here -->
+		
+	 <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> VIDEO</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+
+		<div  role="main" class="ui-content">
+			
+			<div id="back">
+			  <iframe id="position" width="50%" height="30%" src="https://www.youtube.com/embed/WF-b5w4LjTo" frameborder="1" allowfullscreen></iframe>
+  
+				</div>
+				
+				
+				
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+		   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="#" data-icon="home" data-icon-pos="top">Message</a></li>
+            <li><a href="#" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#" data-icon="phone" data-icon-pos="top">Contact</a></li>
+          </ul>
+        </div>
+		</div>
+	</div> <!-- /page -->
+	
+</body>
+
+</html>

@@ -1,0 +1,2680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+	
+	
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/themes/theme-pet.min.css">
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.cycle2.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"> 
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
+		
+	<link rel="stylesheet" href="jquery.mobile-1.4.2/jquery.mobile-1.4.2.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="jquery.mobile-1.4.2/jquery.mobile-1.4.2.js"></script>
+
+ 
+
+  
+	
+		<link rel="stylesheet" href="profile.css" />
+	<link rel="stylesheet" href="style1.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+
+	
+	
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+	
+	
+<style>
+		.centeredGradient {
+  background-image:
+    linear-gradient(70deg,
+       #457B9D 30%,
+       #E63946 60%
+		
+    );
+		opacity: 0.45;
+}
+		#text{
+			
+			background-color: white;
+			
+			
+			
+			
+			
+		}
+		
+		
+		#space{
+			
+			padding-top: 150px;
+			
+			
+			
+			
+		}
+		.footer-menu a {
+  background-color: #333 !important;
+		
+}
+
+.footer-menu a:hover {
+  background-color: #df3a3a !important;
+}
+	
+	
+		
+li.left {
+			-webkit-transition: -webkit-transform 250ms ease;
+			-webkit-transform: translateX(-100%);
+			-moz-transition: -moz-transform 250ms ease;
+			-moz-transform: translateX(-100%);
+			-o-transition: -o-transform 250ms ease;
+			-o-transform: translateX(-100%);
+			transition: transform 250ms ease;
+			transform: translateX(-100%);
+		}
+	
+li.right {
+			-webkit-transition: -webkit-transform 250ms ease;
+			-webkit-transform: translateX(100%);
+			-moz-transition: -moz-transform 250ms ease;
+			-moz-transform: translateX(100%);
+			-o-transition: -o-transform 250ms ease;
+			-o-transform: translateX(100%);
+			transition: transform 250ms ease;
+			transform: translateX(100%);
+		}
+		
+li.left a.ui-btn,
+li.right a.ui-btn {
+			border-top-width: 0;
+			border-left-width: 1px;
+			border-right-width: 1px;
+		}
+li a.ui-btn.border-bottom {
+			border-bottom-width: 1px;
+		}
+		
+ul.touch li.ui-li-has-alt a.delete {
+			display: inherit;
+	   
+		}
+ul.touch li.ui-li-has-alt a.ui-btn {
+			margin-right:0;
+		}
+		
+#confirm p {
+			text-align: center;
+			font-size: inherit;
+			margin-bottom: .75em;
+		}
+    
+</style>
+	<script>
+ $( document ).on( "pagecreate", "#demo-page", function() {
+    // Swipe to remove list item
+    $( document ).on( "swipeleft swiperight", "#list li", function( event ) {
+        var listitem = $( this ),
+            // These are the classnames used for the CSS transition
+            dir = event.type == "swipeleft" ? "left" : "right",
+            // Check if the browser supports the transform (3D) CSS transition
+            transition = $.support.cssTransform3d ? dir : false;
+            confirmAndDelete( listitem, transition );
+    });
+	 
+	 
+	 $(function(){
+		
+		var personsArray =[];
+		
+		if(localStorage.app!=undefined){
+			
+			personsArray =JSON.parse(localStorage.app);
+			
+			
+			
+		}
+		
+		function updateLocalStorage(){
+			
+			
+			localStorage.app=JSON.stringify(personsArray);
+			
+			
+			
+		}
+		
+		
+		function addPerson(){
+			
+			
+				var person = new Object();
+		person.name= $("#tf_name").val();
+		person.description= $("#tf_description").val();
+		personsArray.push(person);
+		
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		function refreshContactList(){
+		
+		
+		 for(var i=0;i< personsArray.length;i++){
+			 
+			 
+		
+			
+			$("#list").append(
+			
+			
+			'<li>'+'<h2>'+personsArray[i].name+'</h2>'+
+			'<p>'+personsArray[i].description+'</p>'+'<a  href="#" class="delete  ui-btn-icon-right ui-icon-delete " tittle="delete">'+'</a>'+
+				
+				
+				
+				'</li>');
+			 
+			 
+			 
+			 
+			 
+			 
+		 }
+		
+			
+			
+			$("#list").listview("refresh");
+	}
+		
+		
+		
+		
+		$("#btn_add").on("click",addPerson);
+		$("#demo-page").on("pagebeforeshow",refreshContactList);
+	
+		
+		
+		
+	});
+	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+    // If it's not a touch device...
+    if ( ! $.mobile.support.touch ) {
+        // Remove the class that is used to hide the delete button on touch devices
+        $( "#list" ).removeClass( "touch" );
+        // Click delete split-button to remove list item
+        $( ".delete" ).on( "click", function() {
+            var listitem = $( this ).parent( "li" );
+            confirmAndDelete( listitem );
+        });
+		
+		
+		
+
+		
+		
+		
+    }
+    function confirmAndDelete( listitem, transition ) {
+        // Highlight the list item that will be removed
+        listitem.children( ".ui-btn" ).addClass( "ui-btn-active" );
+        // Inject topic in confirmation popup after removing any previous injected topics
+        $( "#confirm .topic" ).remove();
+        listitem.find( ".topic" ).clone().insertAfter( "#question" );
+        // Show the confirmation popup
+        $( "#confirm" ).popup( "open" );
+        // Proceed when the user confirms
+        $( "#confirm #yes" ).on( "click", function() {
+            // Remove with a transition
+            if ( transition ) {
+                listitem
+                    // Add the class for the transition direction
+                    .addClass( transition )
+                    // When the transition is done...
+                    .on( "webkitTransitionEnd transitionend otransitionend", function() {
+                        // ...the list item will be removed
+                        listitem.remove();
+                        // ...the list will be refreshed and the temporary class for border styling removed
+                        $( "#list" ).listview( "refresh" ).find( ".border-bottom" ).removeClass( "border-bottom" );
+                    })
+                    // During the transition the previous button gets bottom border
+                    .prev( "li" ).children( "a" ).addClass( "border-bottom" )
+                    // Remove the highlight
+                    .end().end().children( ".ui-btn" ).removeClass( "ui-btn-active" );
+            }
+            // If it's not a touch device or the CSS transition isn't supported just remove the list item and refresh the list
+            else {
+                listitem.remove();
+                $( "#list" ).listview( "refresh" );
+            }
+        });
+        // Remove active state and unbind when the cancel button is clicked
+        $( "#confirm #cancel" ).on( "click", function() {
+            listitem.children( ".ui-btn" ).removeClass( "ui-btn-active" );
+            $( "#confirm #yes" ).off();
+        });
+		
+		
+		
+		
+		
+		
+		
+		
+    }
+	 
+	 
+	
+ 
+	 
+	 
+});
+ </script>
+	
+
+  <script>
+
+// ==================  Login and Register Pages =================
+    $(document).ready(function(){
+
+    });
+    $(document).on("pagecontainerbeforechange", function(ev,ui){
+      if (ui.toPage[0].id === "login"){
+        //console.log("register working");
+        if (sessionStorage.isLogin === true){ //Checking if login activate session storage
+          $.mobile.pageContainer.pagecontainer("change","#explore", {transition:"slide"});
+          ev.defaultPrevented(); 
+        }
+      }
+    });
+    function registerUser(){
+      var uname = $("#usr-name").val();
+      var uemail = $(".usr-email").val();
+      var pwd = $("#usr-pass").val();
+      //console.log("working");
+      var regObj = {uname:uname,uemail:uemail,pwd:pwd};
+      localStorage.regData = JSON.stringify(regObj);
+
+      
+
+      $.mobile.back(); 
+    }
+    function checkLogin(){
+      var regObj = JSON.parse(localStorage.regData);
+      var registeredName = regObj.uname;
+      var registeredPwd = regObj.pwd;
+      if ($("#usr-name").val() === registeredName && $("#usr-pass").val() === registeredPwd){
+     
+        $.mobile.pageContainer.pagecontainer("change","#explore", {transition:"slide"});
+
+        
+        sessionStorage.isLogin = true; //Session Storrage if true
+
+      }else{
+        $("#passalert").popup();
+        $("#passalert").popup("open");
+        sessionStorage.isLogin = false; //Session Storrage if false
+      }
+    }
+
+    function logout(){
+      sessionStorage.isLogin = false;
+      $.mobile.back();
+    }
+
+// ================== PROFILE PAGE =======================
+
+$(document).ready(function(){
+  
+  /* 1. Visualizing things on Hover - See next part for action on click */
+  $('.stars li').on('mouseover', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+   
+    // Now highlight all the stars that's not after the current hovered star
+    $(this).parent().children('li.star').each(function(e){
+      if (e < onStar) {
+        $(this).addClass('hover');
+      }
+      else {
+        $(this).removeClass('hover');
+      }
+    });
+    
+  }).on('mouseout', function(){
+    $(this).parent().children('li.star').each(function(e){
+      $(this).removeClass('hover');
+    });
+  });
+  
+  
+  /* 2. Action to perform on click */
+  $('.stars li').on('click', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    var stars = $(this).parent().children('li.star');
+    
+    for (i = 0; i < stars.length; i++) {
+      $(stars[i]).removeClass('selected');
+    }
+    
+    for (i = 0; i < onStar; i++) {
+      $(stars[i]).addClass('selected');
+    }
+    
+    // JUST RESPONSE (Not needed)
+    var ratingValue = parseInt($('.stars li.selected').last().data('value'), 10);
+    var msg = "";
+    if (ratingValue > 1) {
+        msg = "Thanks! You rated this " + ratingValue + " stars.";
+    }
+    else {
+        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+    }
+    responseMessage(msg);
+    
+  });
+  
+  
+});
+
+
+function responseMessage(msg) {
+  $('.success-box').fadeIn(200);  
+  $('.success-box div.text-message').html("<span>" + msg + "</span>");
+}
+		
+		
+		
+		
+// ==================== Addding to Favourite ====================
+	
+	
+
+    //===================== Comment Area ======================
+    function render(data){
+      var cmt = "<div class='commentBox'><span>"+data.name+"</span><p>"+data.body+"</p></div><div class='clear'></div>";
+      $('#cmtdisplay').append(cmt);
+    }
+
+    $(document).ready(function(){
+      
+      var comment =[];
+
+      if(!localStorage.commentData){
+        localStorage.commentData = [];
+      }else{
+        comment = JSON.parse(localStorage.commentData);
+      }
+
+    
+
+    for(var i=0;i<comment.length;i++){
+      render(comment[i]);
+    }
+    
+    $("#addComment").click(function(){
+      var addObj = {
+        "name": $("#c-name").val(),
+        "body": $("#c-text").val()
+      };
+      comment.push(addObj);
+      localStorage.commentData = JSON.stringify(comment);
+      render(addObj);
+      $("#c-name").val("");
+      $("#c-text").val("");
+    });
+  });
+  
+
+
+  //============ Booking ================
+  jQuery(function($) {
+      var $form = $('#frmBooking');
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_cp21BcECf4kMMUbSlRlZlsMo',
+        token: function(token) {
+          // Use the token to create the charge with a server-side script.
+          // You can access the token ID with `token.id`
+
+          //This will be printed when the transaction is successful. To charge, server side scripting is required.
+          if(token.id){
+                    $("#thankyouPayment").html("Thank you, your payment was successful!");
+                    
+                    //You can also use the following code to re-submit the form content to another file for further processing.
+                    //Don't forget to add action to your form
+                    //$form.get(0).submit();
+
+                    //Or save form data locally, using local storage.
+          }
+        }
+      });
+	  
+
+      $('#customButton').on('click', function(e) {
+        // Code Section B  Open Checkout with further options
+        handler.open({
+          name: 'Pet Hosting Service',
+          currency: 'gbp',
+          description: $('#item_name').val(),
+          amount: $('#total_value').val() * 100
+        });
+        e.preventDefault();
+      });
+
+      // Code Section C  Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+      });
+
+  </script>
+ 
+	<script>
+		
+		$(document).ready(function(){
+  
+  /* 1. Visualizing things on Hover - See next part for action on click */
+  $('.stars li').on('mouseover', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+   
+    // Now highlight all the stars that's not after the current hovered star
+    $(this).parent().children('li.star').each(function(e){
+      if (e < onStar) {
+        $(this).addClass('hover');
+      }
+      else {
+        $(this).removeClass('hover');
+      }
+    });
+    
+  }).on('mouseout', function(){
+    $(this).parent().children('li.star').each(function(e){
+      $(this).removeClass('hover');
+    });
+  });
+  
+  
+  /* 2. Action to perform on click */
+  $('.stars li').on('click', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    var stars = $(this).parent().children('li.star');
+    
+    for (i = 0; i < stars.length; i++) {
+      $(stars[i]).removeClass('selected');
+    }
+    
+    for (i = 0; i < onStar; i++) {
+      $(stars[i]).addClass('selected');
+    }
+    
+    // JUST RESPONSE (Not needed)
+    var ratingValue = parseInt($('.stars li.selected').last().data('value'), 10);
+    var msg = "";
+    if (ratingValue > 1) {
+        msg = "Thanks! You rated this " + ratingValue + " stars.";
+    }
+    else {
+        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+    }
+    responseMessage(msg);
+    
+  });
+  
+  
+});
+
+
+function responseMessage(msg) {
+  $('.success-box').fadeIn(200);  
+  $('.success-box div.text-message').html("<span>" + msg + "</span>");
+}
+		
+		
+		
+		
+	
+	
+ $(document).on( 'pagecontainerbeforehide', 'body', function( event, ui){
+	 
+	
+	 
+		
+		var counter=0;
+    var data={
+	
+	
+	
+	"usersD":[
+        {    "id":"tobby",
+            "Name":"TOBBY",
+            "price":"50£/night",
+            "location": "london",
+			"characteristic":"obedient",
+			"cuantity of comment":"7",
+			"raiting":"",
+			"picture":"photos/tobby.png",
+		 "about":" Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.",
+		 "services":"pet sitting "
+		 
+			
+			
+        },
+        {     "id":"bobby",
+             "Name":"bobby",
+            "price":"15£/night",
+            "location": "london",
+			"characteristic":"cute",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/bobby.jpg"
+        },
+        {
+             "Name":"jordy",
+            "price":"25£/night",
+            "location": "london",
+			"characteristic":"calm",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/jordy.jpg"
+        },
+        {
+             "Name":"goldy",
+            "price":"30£/night",
+            "location": "liverpool",
+			"characteristic":"player",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/goldy.jpg"
+        },
+        {
+             "Name":"alin",
+            "price":"30£/night",
+            "location": "liverpool",
+			"characteristic":"lovely",
+			"cuantity of comment":"7",
+			"raiting":"",
+		
+			"picture":"photos/alin.jpg"
+        },
+        {
+             "Name":"phil",
+            "price":"25£/night",
+            "location": "oxford",
+			"characteristic":"funny",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/phil.jpg"
+        },
+		  {
+             "Name":"ari",
+            "price":"25£/night",
+            "location": "oxford",
+			"characteristic":"funny",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/ari.jpg"
+        }
+		
+		
+		
+		
+      ],
+"usersP":[
+	
+	{
+		  "Name":"carla",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user1.jpg"
+		
+		
+		
+		
+	},
+	{
+		  "Name":"carla",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user1.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"monica",
+            "price":"20£/night",
+            "location": "liverpool",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user2.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"estefania",
+            "price":"15£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user3.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"jame",
+            "price":"20£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user3.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"nura",
+            "price":"15£/night",
+            "location": "london",
+			"cuantity of comment":"8",
+			"raiting":"",
+			
+			"picture":"photo/user5.jpg"
+		
+		
+		
+		
+	},
+	{
+		  "Name":"paolo",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"8",
+			"raiting":"",
+			
+			"picture":"photo/user6.jpg"
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+]
+}
+	
+		
+	   //do something
+	   if ( ui.nextPage.attr('id')== "favourites") {
+		   
+		   $("#favourite-content").html ("");
+		    if ($( "#favourite" ).is( ":checked" )) {
+				$("#favourite-content").append("<li id='tobby'><a href='#'><img src="+data.usersD[0].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[0].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete  delete1 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+				
+				
+				
+			}
+			 if ($( "#favourite1" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='bobby' ><a href='#'><img src="+data.usersD[1].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[1].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete2 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite2" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='jordy'><a href='#'><img src="+data.usersD[2].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[2].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete3 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite3" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='goldy'><a href='#'><img src="+data.usersD[3].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[3].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete4 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite4" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='alin'><a href='#'><img src="+data.usersD[4].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[4].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete5 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite5" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='phil'><a href='#'><img src="+data.usersD[5].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[5].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete6 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   
+		   	 if ($( "#favourite6" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li  id='ari'><a href='#'><img src="+data.usersD[6].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[6].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete7 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				
+			}
+		   
+		   
+		   
+	
+		   
+		  }
+	 
+	 
+	 
+	 	 
+	   
+	   });
+	
+
+	
+
+	
+	
+	
+	
+	</script>
+	<script>
+		
+		
+		
+		
+jQuery(function($) {
+      var $form = $('#frmBooking');
+	
+
+	
+	
+      var handler = StripeCheckout.configure({
+		  
+		  
+        key: 'pk_test_cp21BcECf4kMMUbSlRlZlsMo',
+        token: function(token) {
+          // Use the token to create the charge with a server-side script.
+          // You can access the token ID with `token.id`
+
+          //This will be printed when the transaction is successful. To charge, server side scripting is required.
+          if(token.id){
+                    $("#thankyouPayment").html("Thank you, your payment was successful!");
+                    
+                    //You can also use the following code to re-submit the form content to another file for further processing.
+                    //Don't forget to add action to your form
+                    //$form.get(0).submit();
+
+                    //Or save form data locally, using local storage.
+          }
+        }
+      });
+	  
+
+      $('#customButton').on('click', function(e) {
+
+		  
+	  
+		  
+        // Code Section B  Open Checkout with further options
+        handler.open({
+          name: 'Pet service',
+          currency: 'gbp',
+          description: $('#firstDate').val(),
+          amount: $('#slider-fill1').val() * $('#slider-fill').val()*100
+        });
+        e.preventDefault();
+      });
+
+      // Code Section C  Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+      });   //////paymentttt
+		
+		
+		
+		  function render(data){
+      var cmt = "<div class='commentBox'><span>"+data.name+"</span><p>"+data.body+"</p></div><div class='clear'></div>";
+      $('.cmtdisplay').append(cmt);
+    }
+
+    $(document).ready(function(){
+      
+      var comment =[];
+
+      if(!localStorage.commentData){
+        localStorage.commentData = [];
+      }else{
+        comment = JSON.parse(localStorage.commentData);
+      }
+
+    
+
+    for(var i=0;i<comment.length;i++){
+      render(comment[i]);
+    }
+    
+    $(".addComment").click(function(){
+      var addObj = {
+        "name": $(".c-name").val(),
+        "body": $(".c-text").val()
+      };
+      comment.push(addObj);
+      localStorage.commentData = JSON.stringify(comment);
+      render(addObj);
+      $(".c-name").val("");
+      $(".c-text").val("");
+    });
+  });
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	</script>
+  
+</head>
+<body>
+  <!-- Home Page -->
+  <div data-role="page" id="startup">
+    <div role="main" class="ui-content">
+        <div class="center" >
+          <img src="img/logo.png"  alt="Pet House"  >
+          <p>Trusted and Experienced</p>
+          <h1>PET HOSTING and SITTING</h1>
+          <a href="#login">Click Here</a>
+        </div>
+      </div>
+  </div> 
+
+  <!-- Login Page -->
+  <div data-role="page" id="login">
+    <div role="main" class="ui-content">
+
+      <!-- Login Error Popup -->
+    <div data-role="popup" id="passalert" data-theme="b">
+      <div data-role="header" class="ui-content">
+        <h2>Wrong Pass</h2>
+        <a href="#"  data-rel="back"  class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">delete</a>
+      </div>
+      <div role="main" class="ui-content">
+        <p>Username/Password is Wrong!</p>
+      </div>
+    </div>
+
+
+      <h1>Login</h1>
+      <p>Enter your login info to sign in to your account</p>
+        <label for="username" class="ui-hidden-accessible">User ID</label>
+        <input type="email" id="usr-email" placeholder="Enter your email" >
+        <label for="user-pass" class="ui-hidden-accessible">Password</label>
+        <input type="password" id="#usr-pass" placeholder="Password">
+        <div data-role="fieldcontain">
+         <a href="javascript:checkLogin()" class="ui-btn ui-corner-all">Login</a>
+         <a href="#forgot-pass">Forgot your password</a>
+        </div>  
+        <p>Don't have an account? <a href="#new-account">Create New</a></p>
+    </div>
+    </div>
+
+    <!-- New Account Page -->
+    <div data-role="page" id="new-account">
+      <div role="main" class="ui-content">
+        <h1>Create New Account</h1>
+        <p>Enter your information below to create a new account</p>
+          <div data-role="fieldcontain">
+          <label for="usr-name" class="ui-hidden-accessible">Name</label>
+          <input type="text" id="usr-name" placeholder="Enter your name" >
+        </div>
+        <div data-role="fieldcontain">
+          <label for="usr-email" class="ui-hidden-accessible">Email</label>
+          <input type="email" class="usr-email" placeholder="Enter your email" >
+        </div>
+        <div data-role="fieldcontain">
+          <label for="usr-pass" class="ui-hidden-accessible">Password</label>
+          <input type="password" id="usr-pass" placeholder="Password">
+        </div>
+           <a href="javascript:registerUser()" class="ui-btn ui-corner-all">Create</a>
+           <!--<div data-role="ui-field-contain">
+           <input type="checkbox" data-role="flipswitch" name="reg-flip-box" id="reg-filp-box">
+           <p>By registering you agree to accept the Terms of service and the Privacy & Cookie Policy.</p>
+          </div>  -->
+          <p>Already have an account? <a href="#login">Login</a></p>
+      </div>
+      </div>
+
+    <!-- FORGOT PASSWORD PAGE -->
+    <div data-role="page" id="forgot-pass">
+      <div data-role="header">
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left"></a>
+      </div>
+      <div role="main" class="ui-content">
+        <h2>Forgot Your Password?</h2>
+          <label for="usr-email" class="ui-hidden-accessible">User Email</label>
+          <input type="email" class="usr-email" placeholder="Enter your email" >
+          <div data-role="fieldcontain">
+           <a href="#email-sent" class="ui-btn ui-corner-all">Submit</a>
+          </div>  
+          <p>Don't have an account? <a href="#new-account">Create New</a></p>
+      </div>
+      </div>
+    
+      <!-- Forgot Password Email Sent Page -->
+    <div data-role="page" id="email-sent">
+      <div role="main" class="ui-content">
+        <h2>Email has been sent!</h2>
+        <p>Please check your email address</p>
+          <a href="#login" class="ui-btn ui-corner-all">Login</a> 
+      </div>
+      </div>
+
+          <!-- Explore Page -->
+    <div data-role="page" id="explore">
+
+      <!-- page menu panel -->
+      <div data-role="panel" data-theme="b" data-position="left" data-display="overlay" id="panel">
+      <div role="main" class="ui-content"> 
+        <ul data-role="listview">
+          <a href="#" data-rel="close" class="close-btn ui-btn ui-icon-delete ui-btn-icon-right ui-corner-all"></a>
+          <li><a href="#pet-setting">Pet Sitting</a></li>
+          <li><a href="#doglist">Pet Hosting</a></li>
+			  <li><a href="#">Game</a></li>
+          <li><a href="javascript:logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div data-role="header">
+      <a href="#panel" data-icon="gear" class="ui-btn-left"></a>
+    </div>
+    <div role="main" >
+      <div class="explore-banner ui-content" >
+          <form>
+                 <input type="search" name="search-1" id="search-1" value="">
+            </form>
+      </div>
+      <div data-role="content" class="align-center">
+        <h1>How it Works?</h1>
+        <div class="ui-grid-b">
+          <div class="ui-block-a">
+            <a href="#" class="ui-btn  ui-corner-all ui-icon-search ui-btn-icon-notext icon-size">Search</a>
+            <h2>Find a Service</h2>
+            <p>Discover verified pet sitters who
+              Provide fun and loving experiences.</p>
+            </div>
+          <div class="ui-block-b">
+            <a href="#" class="ui-btn  ui-corner-all ui-icon-search ui-btn-icon-notext icon-size">Search</a>
+            <h2>Arange the meeting</h2>
+            <p>Connect and meet your preferred
+              Sitter for free with no obligations.</p>
+            </div>
+          
+          <div class="ui-block-c">
+            <a href="#" class="ui-btn  ui-corner-all ui-icon-search ui-btn-icon-notext icon-size">Search</a>
+            <h2>Arange the payment</h2>
+            <p>Book and pay with our secure 
+              Service online.</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial align-center" >
+          <h1>What our client say</h1>
+          <div class="testimonial-conatiner cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-timeout="2000" data-cycle-slides="div">
+            <div>
+            <img src="img/user1.jpg" alt="">
+            <p><i class="fas fa-qoute-left"></i><span>Gul Agha</span> <i class="fas fa-qoute-right"></i></p>
+            <p>I love the great customer interactions 
+              I have received duding the service. 
+              The staff is very humble and kind. 
+              The pet setters are very friendly .
+              The meet the customers needs and wants 
+              and works well for a busy person. 
+              </p>
+            </div>
+            <div>
+              <img src="img/user2.png" alt="">
+              <p><i class="fas fa-qoute-left"></i><span>Shir Agha</span><i class="fas fa-qoute-right"></i></p>
+              <p>I love the great customer interactions 
+                I have received duding the service. 
+                The staff is very humble and kind. 
+                The pet setters are very friendly .
+                The meet the customers needs and wants 
+                and works well for a busy person. 
+                </p>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    
+      <div data-role="footer"  >
+        <div data-role="navbar">
+          <ul class="footer-menu">
+         <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+
+     
+    
+   
+
+
+
+        <!-- Login Home Page -->
+    <div data-role="page" id="login-home">
+      <div role="main" class="ui-content">
+        <img src="img/logo.png" alt="">
+        <h2>Welcome!</h2>
+        <p>To Pet House</p>
+           <a href="#pet-setting" class="ui-btn ui-corner-all">Pet Hosting</a> 
+               <a href="basicpagefinal.html" class="ui-btn ui-corner-all">Pet Hosting</a> 
+      </div>
+      <div data-role="footer" data-position="fixed" >
+        <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="#" data-icon="home" data-icon-pos="top">Message</a></li>
+            <li><a href="#" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#" data-icon="phone" data-icon-pos="top">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Pet Sitting Page -->
+    <div data-role="page" id="pet-setting">
+      <div data-role="header">
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left"></a>
+        <h2>Pet Sitting</h2>
+        <a href="#" data-icon="bars" class="ui-btn-right"></a>
+      </div>
+      <div role="main" class="ui-content checkk">
+        <ul data-role="listview"  data-filter="true" >
+          <li class="list-style"><a href="#profile"><img src="img/img-1.png" class="img-size">
+            <h2>Mike</h2>
+            <p>London - England</p>
+            <p>Love to Care for the Dogs</p>
+            <span class="ui-li-count">£50/Night</span>
+          </a>
+          </li>
+          <li><a href="#"><img src="img/img-2.png" class="img-size">
+            <h2>Jolie</h2>
+            <p>London - England</p>
+            <p>Best Care for your pet</p>
+            <span class="ui-li-count">£40/Night</span>
+          </a>
+          </li>
+          <li><a href="#"><img src="img/img-3.png" class="img-size" >
+            <h2>Ellen</h2>
+            <p>London - England</p>
+            <p>Love to Care for the Dogs</p>
+            <span class="ui-li-count">£60/Night</span>
+          </a>
+          </li>
+          <li><a href="#"><img src="img/img-4.png" class="img-size">
+            <h2>Sam</h2>
+            <p>London - England</p>
+            <p>Looking After Pets</p>
+            <span class="ui-li-count">£40/Night</span>
+          </a>
+          </li>
+          <li><a href="#"><img src="img/img-5.png" class="img-size">
+            <h2>John</h2>
+            <p>London - England</p>
+            <p>Love to Care for the Dogs</p>
+            <span class="ui-li-count">£50/Night</span>
+          </a>
+          </li>
+        </ul>
+      </div>
+      <div data-role="footer" data-position="fixed" >
+        <div data-role="navbar">
+          <ul class="footer-menu">
+           <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+         
+          </ul>
+        </div>
+      </div>
+      </div>
+
+
+	
+			<div data-role="page" id="doglist">
+		<!-- jQuery Mobile page content goes here -->
+		
+		<div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Pet Sitting</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+		<div role="main" class="ui-content">
+			
+			
+			
+			
+			     <ul data-role="listview" data-filter="true" data-filter-placeholder="Type animal category" >
+               
+               <li data-role="list-divider">Category 1</li>
+					 
+					     <li  id="tobby"><a href="#profilet" class="data" ><img src="photos/tobby.png" height="703" width="431" alt="tobby" >Tobby <h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">Obedient</h3> <h4>★★★★★</h4>
+				</a></li>
+             
+                <li  id="bobby"><a href="#profile1" class="data" ><img src="photos/bobby.jpg" height="718" width="300" class="ui-li-thumb" alt="bobby">Bobby   
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">Funny</h3> <h4>★★★★</h4></a></li>
+					
+				
+                <li><a href="#profile4"      ><img src="photos/alin.jpg" height="718" width="300" class="ui-li-thumb" >Alin
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile5"      ><img src="photos/phil.jpg" height="718" width="300" class="ui-li-thumb">Phil
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile3"      ><img src="photos/goldy.jpg" height="718" width="300" class="ui-li-thumb">Goldy
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile2"      ><img src="photos/jordy.jpg" height="718" width="300" class="ui-li-thumb" alt="jordy">Jordy
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile6"    ><img src="photos/ari.jpg" height="718" width="300" class="ui-li-thumb">Ari
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					
+			  
+            </ul>
+			
+		</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page list fog -->
+	
+	
+	
+<div data-role="page" id="profilet">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/tobby.png" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite" id="favourite" class="custom">
+              <label class="favB" for="favourite"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <div class="comment">
+            <h2>Leave Comment</h2>
+            <input type="text" class="c-name" placeholder="Enter your name">
+            <textarea name="" class="c-text" cols="30" rows="10" placeholder="Write Your Comment..."></textarea>
+            <input type="button" class="addComment" value="Add Comment">
+            
+          </div>
+
+          <div class="cmtdisplay">
+
+          </div>
+	
+	  <form>
+    <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  <div class="contactp">
+   <a> <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact "></a>
+			  </div> 
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                  <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  tobby profile-->
+	
+	
+	
+	<div data-role="page" id="book">
+		<!-- jQuery Mobile page content goes here -->
+		  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Booking </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+		
+
+		<div role="main" class="ui-content">
+	
+<form id="frmBooking" name="bookingForm" action="_self">		
+	<input id="item_name" name="item_name" type="text" value="Pet service">
+	
+	<label for="date"> Date:</label>
+<input type="date" name="firstDate" id="firstDate" value="">
+	
+	<label for="slider-fill">Days:</label>
+<input type="range" name="slider-fill" id="slider-fill" value="1" min="0" max="30" step="1" data-highlight="true">
+	<label for="slider-fill">Price £:</label>
+<input type="range" name="slider-fill" id="slider-fill1" value="20" min="0" max="80" step="20" data-highlight="true">
+
+			
+
+			
+			<button id="customButton">Purchase</button>
+		
+	</form>
+		</div>
+
+			
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page booking -->
+	
+	
+<div data-role="page" id="profile1">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/bobby.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite1" id="favourite1" class="custom">
+              <label class="favB" for="favourite1"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>____________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  <div class="comment">
+            <h2>Leave Comment</h2>
+            <input type="text" class="c-name" placeholder="Enter your name">
+            <textarea name="" class="c-text" cols="30" rows="10" placeholder="Write Your Comment..."></textarea>
+            <input type="button" class="addComment" value="Add Comment" >
+            
+          </div>
+
+          <div class="cmtdisplay">
+
+          </div>
+	
+	  <form>
+      <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+			
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                    <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  bobby profile-->
+	
+	<div data-role="page" id="profile2">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/jordy.jpg" class="img1" alt="jordy" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/jordy.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Jordy</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite2" id="favourite2" class="custom">
+              <label class="favB" for="favourite2"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">30£/night</button>
+	  <p>____________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea2"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+      <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                    <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div><!-- /page  jordy profile-->
+	
+	<div data-role="page" id="favorites">
+		<!-- jQuery Mobile page content goes here -->
+		
+		 <div data-role="header">
+			<h4> Favorite web</h4>
+			
+
+
+		 </div>
+
+		<div role="main" class="ui-content">
+		
+	
+ <ul id="favourite-content"   data-role="listview">
+	 
+	 <li>My favourites: </li>
+			
+			
+			
+			
+			
+			</ul>
+		
+		</div>
+
+	
+			
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                      <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page  favorite-->	
+		
+<div data-role="page" id="profile3">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/goldy.jpg" class="img1" alt="goldy" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/goldy.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Goldy</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite43" id="favourite3" class="custom">
+              <label class="favB" for="favourite3"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea4" id="textarea4"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  goldyprofile-->
+		
+<div data-role="page" id="profile4">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/alin.jpg" class="img2" alt="alin"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite4" id="favourite4" class="custom">
+              <label class="favB" for="favourite4"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea3"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+  <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+              <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  alin profile-->
+		
+<div data-role="page" id="profile5">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/phil.jpg" class="img2" alt="phil"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite5" id="favourite5" class="custom">
+              <label class="favB" for="favourite5"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea5"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+     <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                      <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  philprofile-->
+		
+<div data-role="page" id="profile6">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/ari.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/ari.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Ari</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite6" id="favourite6" class="custom">
+              <label class="favB" for="favourite6"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea6"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                 <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  ariprofile-->
+	
+
+
+<div data-role="page" id="profileAccount">
+		<!-- jQuery Mobile page content goes here -->
+		
+	<div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> home </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+		<div role="main" class="ui-content"  >
+			
+			<img id="profileA" src="photos/user1.jpg" alt="ari">
+			
+			
+			
+			
+			
+<div class="space ui-grid-b">
+<div class="ui-block-a"><a href="#" class=" ui-btn ui-icon-user ui-btn-icon-notext ui-corner-all"></a></div>
+<div class="ui-block-b">Arina Canosa</div>
+<div class="ui-block-a"><a href="#" class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all"></a></div>
+<div class="ui-block-b">London</div>
+</div><!-- /grid-a -->
+			
+		
+				
+			
+			
+	
+			
+			
+			
+			
+			<form>
+    <fieldset class="changepassword" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right"  >
+        <legend><small>Change password</small></legend>
+<label for="textinput-a">Old password</label>
+        <input type="password" name="textinput-a" id="textinput-a" placeholder="" value="">
+		
+		<label for="password"> New Password</label>
+<input type="password" name="password" id="password" value="" autocomplete="off">
+		<label for="password1">Re-type Password</label>
+<input type="password" name="password1" id="password1" value="" autocomplete="off">
+		<button>Change password</button>	
+     
+    </fieldset>
+</form>
+			
+			
+					
+			<form>
+    <fieldset class="service1" data-role="collapsible" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" data-iconpos="right"   >
+        <legend><small>Serves</small></legend>
+        
+        <div data-role="controlgroup">
+           <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">
+    <label  for="checkbox-1a"><p class="label" >Pet sitting</p></label>
+    <input type="checkbox" name="checkbox-2a" id="checkbox-2a">
+    <label  for="checkbox-2a"><p class="label" >Pet Hosting</p></label>
+
+  </div>
+		
+		<div>
+			
+		<label for="slider-fill"><h3>How far you can travel</h3></label>
+<input type="range" name="slider-fill" id="slider-fill2" value="50" min="0" max="100" step="1" data-highlight="true">
+		
+		
+		
+		</div>
+		
+		
+		<input type="text" name="text-basic" id="text-basic3" value="Adress">
+		<div class="ui-grid-c">
+    <div class="ui-block-a"><input type="text" name="text-basic" id="text-basic" value="city"></div>
+    <div class="ui-block-b"><input type="text" name="text-basic2" id="text-basic2" value="Poscode"></div>
+   
+
+</div><!-- /grid-c -->
+		
+		
+		<fieldset  data-mini="true" data-role="collapsible" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u"  >
+    <legend class="ui-hidden-accessible">Choose price range</legend>
+			
+		
+	<div class="ui-grid-b">
+    <div class="ui-block-a"><input type="checkbox" name="checkbox-v-8a" id="checkbox-v-8a"> <label for="checkbox-v-8a">per hour</label></div>
+    <div class="ui-block-b"><input type="text" name="text-basic" id="text-basic4" value="£"></div>
+	<div class="ui-block-a"><input type="checkbox" name="checkbox-v-8b" id="checkbox-v-8b"><label for="checkbox-v-8b">per day</label></div>
+    <div class="ui-block-b"><input type="text" name="text-basic" id="text-basic7" value="£"></div>
+	<div class="ui-block-a"><input type="checkbox" name="checkbox-v-8c" id="checkbox-v-8c"><label for="checkbox-v-8c">per week</label></div>
+    <div class="ui-block-b"><input type="text" name="text-basic" id="text-basic5" value="£"></div>
+	<div class="ui-block-a"><input type="checkbox" name="checkbox-v-8c1" id="checkbox-v-8c1"><label for="checkbox-v-8c1">per moth</label></div>
+    <div class="ui-block-b"><input type="text" name="text-basic" id="text-basic6" value="£"></div>
+
+</div><!-- /grid-c -->		
+			
+			
+			
+			
+			
+			
+			
+  
+ 
+			
+			
+</fieldset>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<label for="textarea">about yourself:</label>
+<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>	
+		
+			<button>Save</button>	
+    </fieldset>
+				
+		
+				
+				
+</form>		
+			
+			<div  data-role="collapsible" data-collapsed="false"    data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+    <h4><small>Help</small></h4>
+    <p>
+On any technical issues please contact 
+Our team.
+
+<p class="redB">Email</p>: info@pethouse.couk
+<p class="redB">Phone</p>: 02020 000200
+				
+</p>
+</div>
+			
+			
+			
+			
+<div class="ui-grid-a">
+<div class="ui-block-a"><a href="#login" class="ui-btn ui-corner-all">Logout</a></div>
+<div class="ui-block-b"><a  href="#book" class="ui-btn ui-corner-all">PaymentMethod</a></div>
+</div>
+			
+			
+		
+		
+		</div>
+	
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+                  <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page PROFILE-->		
+
+	
+	<!--	messagesssss -->
+	
+  <div data-role="page" id="demo-page" data-title="Inbox" >
+	
+					
+	<div data-role="header">
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> home </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+			
+			
+	
+
+    <div role="main" class="ui-content">
+        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete" data-filter="true" data-filter-placeholder="Message">
+            <li>
+                <a href="#text" >
+                    <h3>Avery Walker</h3>
+                    <p class="topic"><strong>Re: Bussy</strong></p>
+                    <p>Sorry! i am not available those days </p>
+                    <p class="ui-li-aside"><strong>4:48</strong>PM</p>
+                </a>
+                <a href="#confirm"  class="delete">Delete</a>
+            </li>
+			
+			 <li>
+                <a href="#demo-mail">
+                    <h3>Camila</h3>
+                    <p class="topic"><strong>Re: Available</strong></p>
+                    <p>Sure, let's plan on meeting on weekend </p>
+                    <p class="ui-li-aside"><strong>4:48</strong>PM</p>
+                </a>
+                <a href="#confirm" class="delete">Delete</a>
+            </li>
+			
+			 <li>
+                <a href="#demo-mail">
+                    <h3>leonila</h3>
+                    <p class="topic"><strong>Re: amazing</strong></p>
+                    <p>your dog is amazing</p>
+                    <p class="ui-li-aside"><strong>4:48</strong>PM</p>
+                </a>
+                <a href="#confirm" class="delete">Delete</a>
+            </li>
+			
+			<li>
+                <a href="#demo-mail">
+                    <h3>clara</h3>
+                    <p class="topic"><strong>Re: Again</strong></p>
+                    <p>Plasure to take care him</p>
+                    <p class="ui-li-aside"><strong>4:48</strong>PM</p>
+                </a>
+                <a href="#confirm" class="delete">Delete</a>
+            </li>
+  </ul>
+    </div><!-- /content -->
+	   
+
+	   
+    <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+        <p id="question">Are you sure you want to delete:</p>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+            </div>
+            <div class="ui-block-b">
+                <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+            </div>
+        </div>
+    </div><!-- /popup -->
+
+	
+	
+
+				<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="#message" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	  
+	  
+	  	<div id="text" data-role="page_add"  >
+		<!-- jQuery Mobile page content goes here -->
+		
+		 <div data-role="header"  class="centeredGradient" data-position="fixed">
+			
+       
+        <a href="#demo-intro" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+		 </div>
+
+		<div id="space" role="main" class="ui-content">
+			
+			<label for="tf_name"   ></label>
+			<input type="text" id="tf_name"  placeholder="Name">
+			<label for ="tf_description"  ></label>
+			<input type="text" id="tf_description"  placeholder="Messages">
+			<a href="#demo-page" id="btn_add" data-role="button">Chat</a>
+			 
+			
+		
+		</div>
+	
+		<div data-role="footer"  data-position="fixed" >
+			
+		
+			   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="#message" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			
+			
+			
+		</div>
+	
+
+	
+	
+
+	
+	</div>
+			
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+</div>
+			
+
+<!--	messagesssss -->
+
+  
+   
+
+ 
+
+    <!-- Profile Page -->
+ <div data-role="page" id="profile">
+
+    
+    <div data-role="header">
+      <a href="#" data-rel="back" data-icon="carat-l" class="ui-btn-left"></a>
+      <h1>Profile</h1>
+    </div>
+
+    <div role="main" >
+      <img src="img/profile-banner.png" alt="">
+      <div data-role="content" >
+        <div class="ui-grid-b">
+          <div class="ui-block-a">
+            <img src="img/img-1.png" alt="">
+            <fieldset data-role="controlgroup" >
+              <input type="checkbox" name="favourite" id="favourite7" class="custom">
+              <label class="favBtn" for="favourite"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+          </div>
+          <div class="ui-block-b">
+            <h2>Mike</h2>
+            <p>London, UK</p>
+            <p class="ui-btn">£60/Pe Night</p>
+            </div>
+          
+          <div class="ui-block-c">
+            <div class="rating-stars text-center">
+              <ul class="stars">
+                <li class="star" title="Poor" data-value="1">
+                  <i class="fa fa-star fa-fw"></i>
+                </li>
+                <li class="star" title="Fair" data-value="2">
+                  <i class="fa fa-star fa-fw"></i>
+                </li>
+                <li class="star" title="Good" data-value="3">
+                  <i class="fa fa-star fa-fw"></i>
+                </li>
+                <li class="star" title="Excellent" data-value="4">
+                  <i class="fa fa-star fa-fw"></i>
+                </li>
+                <li class="star" title="WOW!!!" data-value="5">
+                  <i class="fa fa-star fa-fw"></i>
+                </li>
+              </ul>
+            </div>
+            <a class="commentsp" >view comment</a>
+            <div class="success-box">
+              <div class="clearfix"></div>
+              <div class="text-message"></div>
+              <div class="clearfix"></div>
+            </div>
+
+
+            </div>
+          </div>
+          <div class="profile-about">
+            <h2>About</h2>
+            <p>My name is Jolie, I am living in London and I really love animals. ‘I have found that using a house and pet setting provides me a lot of opportunities and offers me to meet different people and interact with them and eventually make friends. I personally don’t own a pet, however I love pets  and I have grown p with 3 pets in my parents house, therefore I am quite familiar with with needs, wants.  
+            </p>
+            <h3>Services</h3>
+            <ul class="profile-service">
+              <li>24hr Service</li>
+              <li>Day Care</li>
+              <li>Dog Walking</li>
+            </ul>
+          </div>  
+          <!-- Comment Area-->
+          <div class="comment">
+            <h2>Leave Comment</h2>
+            <input type="text" id="c-name" placeholder="Enter your name">
+            <textarea name="" id="c-text" cols="30" rows="10" placeholder="Write Your Comment..."></textarea>
+            <input type="button" id="addComment" value="Add Comment">
+            
+          </div>
+
+          <div id="cmtdisplay">
+
+          </div>
+
+          <fieldset class="ui-grid-a">
+                <div class="ui-block-a btnleft"><a href="#" class="ui-btn">Contact</a></div>
+                <div class="ui-block-b"><a href="#booking" data-transition="slidedown" class="ui-btn ui-btn-b">Book</a></div>
+            </fieldset>
+
+
+        </div>
+      
+        
+      </div>
+		
+		
+    	<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="#demo-page" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#profileAccount" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#explore" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+      </div>
+
+
+</body>
+
+
+</html>

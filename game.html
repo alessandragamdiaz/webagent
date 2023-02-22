@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>game</title>
+	
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" href="style1.css">
+	 <link rel="stylesheet" href="css/custom.css" />
+	
+		<script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>	
+	
+	
+	<script>
+	
+	
+	$(function() {
+		
+		
+			var colors = $('#colors li');
+			var mainColor = $('#main');
+			var start = $('#start');
+		
+		
+			var gameState = 'waiting';
+			var gameSequence = new Array();
+			var level = 1;
+			var t;
+			var flashNo;
+			var clickedNo;
+		var counter = 0;
+		
+	  $('#endScreen').hide();
+		
+		
+			var setupLightSequence = function() {
+				var randomNum =  Math.floor(Math.random() * 4);
+				gameSequence[level-1] = randomNum;
+				showLightSequence();
+			};
+			var lightOn = function(no) {
+				colors.eq(gameSequence[no]).addClass('on');
+			};
+			
+			var lightOff = function() {
+				colors.removeClass('on');
+			};
+			var showLightSequence = function() {
+				lightOff();
+		
+				if(flashNo < level) {
+					var on = setTimeout(function() { 
+						var off = setTimeout(function() { 
+							showLightSequence(); 
+							flashNo++; 
+						}, 500);
+						lightOn(flashNo);
+					}, 500);
+				}
+				else {
+					gameState = 'playing';
+					$('body').addClass('playing');
+					start.text('Your turn...');
+					clearTimeout(on);
+				}	
+			};
+		
+			colors.click(function() {
+				if(gameState == 'playing') {
+					
+					
+					
+				  
+					
+					
+					var selectedSquare = $(this).index();
+					var selectedColor = $(this).css('background-color');
+
+	
+		
+	
+					
+					
+					
+					
+					
+			
+					if(gameSequence[clickedNo] == selectedSquare) {
+						if(clickedNo == level-1) {
+							gameState = 'waiting';
+							$('body').removeClass('playing');
+							start.text('WELL DONE. Go to the next level >');
+							level++;
+							
+							 
+						}
+												
+						lightOn(clickedNo);
+						var off = setTimeout(function() { 
+							lightOff();
+							clickedNo++;
+						}, 200);
+					}
+					else {
+						gameState = 'waiting';
+						$('body').removeClass('playing');
+						start.text('GAME OVER. Try again?');
+						
+						$('body').removeClass('playing').addClass('game-over');
+						
+						 $('#endScreen').show('medium');
+                         $('#endCount').html(counter);
+                        
+						gameSequence = new Array();	
+						
+					}
+				}
+			});
+			var init = function() {
+			
+					
+	  $('#endScreen').hide();
+				  
+				
+				$('#level').text('Level ' + level);
+				flashNo = 0;
+				clickedNo = 0;
+				$(this).text('Simon says...');
+				$('body').removeClass('game-over');
+				setupLightSequence();
+				 counter=counter+10;
+				
+	
+		
+
+				
+				
+				
+				
+			}
+			
+			
+							
+	
+				
+				
+			
+			
+			
+			
+			
+			start.click(init);
+		});
+		
+	
+				
+			 
+   
+	
+ 
+  
+	
+	
+	
+	</script>
+
+
+	<style>
+		
+		
+		
+		
+		
+		#endScreen{
+			
+			
+			
+			position: absolute; top:40%;right: 30%;
+			
+			font-weight: 500;
+			font-size: 30px;
+			
+			
+			
+			
+		}
+		
+		#level{
+			
+			
+			
+		position: absolute; bottom: 16%;right: 40%;
+			
+		}
+		#start{
+			font-size: 30px;
+			
+			
+			position: absolute; top:10%;right: 30%;
+			
+			
+			
+		}
+	
+	
+	#colors {
+		float: left;
+		overflow: hidden;
+		width: 280px;
+		
+		position: absolute; right: 15%;top: 25%;
+	}
+	#colors li {
+		background-color: red;
+		color: black;
+		cursor: auto;
+		font-size: 30px;
+		line-height: 100px;
+		list-style-position: inside;
+		list-style-type: none;
+		height: 100px;
+		float: left;
+		width: 100px;
+		margin-right: 20px;
+		margin-bottom: 20px;
+	}
+	#colors li.green { 
+		
+		
+		background-color: green; }
+	#colors li.blue { background-color: blue; }
+	#colors li.yellow { background-color: yellow; }
+	#colors li.on { background-color: black; }
+	p#start { cursor: pointer; color: blue; }
+	p#start:hover { text-decoration: underline; }
+	.playing #colors li {
+		cursor: pointer;
+	}
+	.game-over #colors li {
+		opacity: 0.5;
+	}
+
+		
+	
+	
+	
+	
+	</style>	
+	
+	
+	
+</head>
+	
+
+<body>
+	
+	
+	<div data-role="page" id="Page2">
+		<!-- jQuery Mobile page content goes here -->
+		
+			<div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> home </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+			
+
+
+		 
+
+		<div role="main" class="ui-content">
+	
+			
+			
+			<p id="start">Start the game</p>
+		
+		<p id="level">Level 1</p>
+		
+		<ul id="colors">
+			<li></li>
+			<li class="green"></li>
+			<li class="blue"></li>
+			<li class="yellow"></li>
+		</ul>
+		
+			
+			
+			
+			
+			  <div id="endScreen">
+    YOUR SCORE IS:<br />
+    <p id="endCount">1</p>POINTS
+  
+  </div>
+
+			
+			
+
+			
+			
+			
+			
+			
+		</div>
+
+	
+	</div> <!-- /page -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

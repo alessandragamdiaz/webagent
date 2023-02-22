@@ -1,0 +1,1596 @@
+<!doctype html>
+<html>
+ 
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- the three things that jQuery Mobile needs to work -->
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="style1.css">
+	 <link rel="stylesheet" href="css/custom.css" />
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	
+	
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+		
+	<link rel="stylesheet" href="profile.css" />
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+
+
+	 
+	<script>
+		
+		$(document).ready(function(){
+  
+  /* 1. Visualizing things on Hover - See next part for action on click */
+  $('.stars li').on('mouseover', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+   
+    // Now highlight all the stars that's not after the current hovered star
+    $(this).parent().children('li.star').each(function(e){
+      if (e < onStar) {
+        $(this).addClass('hover');
+      }
+      else {
+        $(this).removeClass('hover');
+      }
+    });
+    
+  }).on('mouseout', function(){
+    $(this).parent().children('li.star').each(function(e){
+      $(this).removeClass('hover');
+    });
+  });
+  
+  
+  /* 2. Action to perform on click */
+  $('.stars li').on('click', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    var stars = $(this).parent().children('li.star');
+    
+    for (i = 0; i < stars.length; i++) {
+      $(stars[i]).removeClass('selected');
+    }
+    
+    for (i = 0; i < onStar; i++) {
+      $(stars[i]).addClass('selected');
+    }
+    
+    // JUST RESPONSE (Not needed)
+    var ratingValue = parseInt($('.stars li.selected').last().data('value'), 10);
+    var msg = "";
+    if (ratingValue > 1) {
+        msg = "Thanks! You rated this " + ratingValue + " stars.";
+    }
+    else {
+        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+    }
+    responseMessage(msg);
+    
+  });
+  
+  
+});
+
+
+function responseMessage(msg) {
+  $('.success-box').fadeIn(200);  
+  $('.success-box div.text-message').html("<span>" + msg + "</span>");
+}
+		
+		
+		
+		
+	
+	
+ $(document).on( 'pagecontainerbeforehide', 'body', function( event, ui){
+	 
+	
+	 
+		
+		var counter=0;
+    var data={
+	
+	
+	
+	"usersD":[
+        {    "id":"tobby",
+            "Name":"TOBBY",
+            "price":"50£/night",
+            "location": "london",
+			"characteristic":"obedient",
+			"cuantity of comment":"7",
+			"raiting":"",
+			"picture":"photos/tobby.png",
+		 "about":" Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.",
+		 "services":"pet sitting "
+		 
+			
+			
+        },
+        {     "id":"bobby",
+             "Name":"bobby",
+            "price":"15£/night",
+            "location": "london",
+			"characteristic":"cute",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/bobby.jpg"
+        },
+        {
+             "Name":"jordy",
+            "price":"25£/night",
+            "location": "london",
+			"characteristic":"calm",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/jordy.jpg"
+        },
+        {
+             "Name":"goldy",
+            "price":"30£/night",
+            "location": "liverpool",
+			"characteristic":"player",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/goldy.jpg"
+        },
+        {
+             "Name":"alin",
+            "price":"30£/night",
+            "location": "liverpool",
+			"characteristic":"lovely",
+			"cuantity of comment":"7",
+			"raiting":"",
+		
+			"picture":"photos/alin.jpg"
+        },
+        {
+             "Name":"phil",
+            "price":"25£/night",
+            "location": "oxford",
+			"characteristic":"funny",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/phil.jpg"
+        },
+		  {
+             "Name":"ari",
+            "price":"25£/night",
+            "location": "oxford",
+			"characteristic":"funny",
+			"cuantity of comment":"7",
+			"raiting":"",
+			
+			"picture":"photos/ari.jpg"
+        }
+		
+		
+		
+		
+      ],
+"usersP":[
+	
+	{
+		  "Name":"carla",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user1.jpg"
+		
+		
+		
+		
+	},
+	{
+		  "Name":"carla",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user1.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"monica",
+            "price":"20£/night",
+            "location": "liverpool",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user2.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"estefania",
+            "price":"15£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user3.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"jame",
+            "price":"20£/night",
+            "location": "london",
+			"cuantity of comment":"9",
+			"raiting":"",
+			
+			"picture":"photo/user3.jpg"
+		
+		
+		
+		
+	},{
+		  "Name":"nura",
+            "price":"15£/night",
+            "location": "london",
+			"cuantity of comment":"8",
+			"raiting":"",
+			
+			"picture":"photo/user5.jpg"
+		
+		
+		
+		
+	},
+	{
+		  "Name":"paolo",
+            "price":"25£/night",
+            "location": "london",
+			"cuantity of comment":"8",
+			"raiting":"",
+			
+			"picture":"photo/user6.jpg"
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+]
+}
+	
+		
+	   //do something
+	   if ( ui.nextPage.attr('id')== "favourites") {
+		   
+		   $("#favourite-content").html ("");
+		    if ($( "#favourite" ).is( ":checked" )) {
+				$("#favourite-content").append("<li id='tobby'><a href='#'><img src="+data.usersD[0].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[0].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete  delete1 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+				
+				
+				
+			}
+			 if ($( "#favourite1" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='bobby' ><a href='#'><img src="+data.usersD[1].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[1].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete2 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite2" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='jordy'><a href='#'><img src="+data.usersD[2].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[2].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete3 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite3" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='goldy'><a href='#'><img src="+data.usersD[3].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[3].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete4 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite4" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='alin'><a href='#'><img src="+data.usersD[4].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[4].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete5 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   	 if ($( "#favourite5" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li id='phil'><a href='#'><img src="+data.usersD[5].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[5].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete6 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				
+			}
+		   
+		   	 if ($( "#favourite6" ).is( ":checked" )) {
+				 
+				 
+				 
+				 
+				 
+				 $("#favourite-content").append("<li  id='ari'><a href='#'><img src="+data.usersD[6].picture+" height='100' width='100' class='ui-li-thumb'><div  class='posfav'><h3 class='names' >"+data.usersD[6].Name+"</h3><p  class='location'  >London-England</p> <h3  style='font-weight: 500;'>lovely</h3> <h4>★★★</h4></a></div><Button  class='delete7 ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all  ' ></Button></li>");
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				
+			}
+		   
+		   
+		   
+	
+		   
+		  }
+	 
+	 
+	 
+	 	 
+	   
+	   });
+	
+
+	
+
+	
+	
+	
+	
+	</script>
+	<script>
+		
+		
+		
+		
+jQuery(function($) {
+      var $form = $('#frmBooking');
+	
+
+	
+	
+      var handler = StripeCheckout.configure({
+		  
+		  
+        key: 'pk_test_cp21BcECf4kMMUbSlRlZlsMo',
+        token: function(token) {
+          // Use the token to create the charge with a server-side script.
+          // You can access the token ID with `token.id`
+
+          //This will be printed when the transaction is successful. To charge, server side scripting is required.
+          if(token.id){
+                    $("#thankyouPayment").html("Thank you, your payment was successful!");
+                    
+                    //You can also use the following code to re-submit the form content to another file for further processing.
+                    //Don't forget to add action to your form
+                    //$form.get(0).submit();
+
+                    //Or save form data locally, using local storage.
+          }
+        }
+      });
+	  
+
+      $('#customButton').on('click', function(e) {
+
+		  
+	  
+		  
+        // Code Section B  Open Checkout with further options
+        handler.open({
+          name: 'Pet service',
+          currency: 'gbp',
+          description: $('#firstDate').val(),
+          amount: $('#slider-fill1').val() * $('#slider-fill').val()*100
+        });
+        e.preventDefault();
+      });
+
+      // Code Section C  Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+      });   //////paymentttt
+	
+	</script>
+
+	
+
+
+
+</head>
+  
+<body>
+
+	
+	<!-- This is page 1-->
+		<div data-role="page" id="Page1">
+		<!-- jQuery Mobile page content goes here -->
+		<div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> home </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+		<div role="main" class="ui-content">
+  
+			<a href="#login-home" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-search" >Find your services</a>
+			<a href="messages.html" rel="external" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-comment" >Messages</a>
+			<a href="#PageV" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-check" > video</a>
+			<a href="#PageAR" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-heart" > ARQUE</a>
+			<a href="#" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-phone" >Contact</a>
+			<a href="" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-user" >  Profile</a>
+	
+
+
+		
+</div>
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page principal -->
+	
+	
+	
+	   <div data-role="page" id="login-home">
+		   
+		   
+		   
+		   <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> AR CODE</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+      <div role="main" class="ui-content">
+        <img src="img/logo.png" alt="">
+        <h2>Welcome!</h2>
+        <p>To Pet House</p>
+           <a href="#pet-setting" class="ui-btn ui-corner-all">Pet Hosting</a> 
+           <a href="#page2" class="ui-btn ui-corner-all">Pet Sitting</a> 
+      </div>
+    <div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+      </div>   <!-- /page service-->
+	
+
+	<!-- This is page 2-->
+		<div data-role="page" id="page2">
+		<!-- jQuery Mobile page content goes here -->
+		
+		<div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Pet Sitting</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+		<div role="main" class="ui-content">
+			
+			
+			
+			
+			     <ul data-role="listview" data-filter="true" data-filter-placeholder="Type animal category" >
+                <li>List Item 1</li>
+               <li data-role="list-divider">Category 1</li>
+					 
+					     <li  id="tobby"><a href="#profile" class="data" ><img src="photos/tobby.png" height="703" width="431" alt="tobby" >Tobby <h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">Obedient</h3> <h4>★★★★★</h4>
+				</a></li>
+             
+                <li  id="bobby"><a href="#profile1" class="data" ><img src="photos/bobby.jpg" height="718" width="300" class="ui-li-thumb" alt="bobby">Bobby   
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">Funny</h3> <h4>★★★★</h4></a></li>
+					
+				
+                <li><a href="#profile4"      ><img src="photos/alin.jpg" height="718" width="300" class="ui-li-thumb" >Alin
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile5"      ><img src="photos/phil.jpg" height="718" width="300" class="ui-li-thumb">Phil
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile3"      ><img src="photos/goldy.jpg" height="718" width="300" class="ui-li-thumb">Goldy
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile2"      ><img src="photos/jordy.jpg" height="718" width="300" class="ui-li-thumb" alt="jordy">Jordy
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					  <li><a href="#profile6"    ><img src="photos/ari.jpg" height="718" width="300" class="ui-li-thumb">Ari
+				<h2   style="font-weight: 100;">London-England</h2> <h3  style="font-weight: 500;">lovely</h3> <h4>★★★</h4></a></li>
+					
+			  
+            </ul>
+			
+		</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page list fog -->
+	
+	
+	
+<div data-role="page" id="profile">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/tobby.png" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite" id="favourite" class="custom">
+              <label class="favB" for="favourite"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <a href="#book"><input  class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  </a>
+		  <div class="contactp">
+   <a> <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact "></a>
+			  </div> 
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  tobby profile-->
+	
+	
+	
+	<div data-role="page" id="book">
+		<!-- jQuery Mobile page content goes here -->
+		  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Booking </h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+		
+
+		<div role="main" class="ui-content">
+	
+<form id="frmBooking" name="bookingForm" action="_self">		
+	<input id="item_name" name="item_name" type="text" value="Pet service">
+	
+	<label for="date"> Date:</label>
+<input type="date" name="firstDate" id="firstDate" value="">
+	
+	<label for="slider-fill">Days:</label>
+<input type="range" name="slider-fill" id="slider-fill" value="1" min="0" max="30" step="1" data-highlight="true">
+	<label for="slider-fill">Price £:</label>
+<input type="range" name="slider-fill" id="slider-fill1" value="20" min="0" max="80" step="20" data-highlight="true">
+
+			
+
+			
+			<button id="customButton">Purchase</button>
+		
+	</form>
+		</div>
+
+			<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page booking -->
+	
+	
+<div data-role="page" id="profile1">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/bobby.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite1" id="favourite1" class="custom">
+              <label class="favB" for="favourite1"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>____________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea1"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favorites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  bobby profile-->
+	
+	<div data-role="page" id="profile2">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/jordy.jpg" class="img1" alt="jordy" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/jordy.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Jordy</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite2" id="favourite2" class="custom">
+              <label class="favB" for="favourite2"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">30£/night</button>
+	  <p>____________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea2"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div><!-- /page  jordy profile-->
+	
+	<div data-role="page" id="favourites">
+		<!-- jQuery Mobile page content goes here -->
+		
+		 <div data-role="header">
+			<h4> Header page 2</h4>
+			
+
+
+		 </div>
+
+		<div role="main" class="ui-content">
+		
+	
+ <ul id="favourite-content"   data-role="listview">
+	 
+	 <li>My favourites: </li>
+			
+			
+			
+			
+			
+			</ul>
+		
+		</div>
+
+	
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favourite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page  favorite-->	
+		
+<div data-role="page" id="profile3">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/goldy.jpg" class="img1" alt="goldy" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/goldy.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite43" id="favourite3" class="custom">
+              <label class="favB" for="favourite3"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea4" id="textarea4"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  goldyprofile-->
+		
+<div data-role="page" id="profile4">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/alin.jpg" class="img2" alt="alin"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite4" id="favourite4" class="custom">
+              <label class="favB" for="favourite4"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea3"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  alin profile-->
+		
+<div data-role="page" id="profile5">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/alin.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/phil.jpg" class="img2" alt="phil"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Tobby</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite5" id="favourite5" class="custom">
+              <label class="favB" for="favourite5"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea5"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  philprofile-->
+		
+<div data-role="page" id="profile6">
+  <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> Profile</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+	
+	
+	
+	
+  <div data-role="content">
+	  
+	  <div>
+		  <img  src="photos/ari.jpg" class="img1" alt="alin" >
+	  
+	 </div>
+	<div >
+	<a><img src="photos/ari.jpg" class="img2" alt="tobby"></a>
+		<section class="rating-widget positionS">
+  
+  <!-- Rating Stars Box -->
+  <div class="rating-stars text-center">
+    <ul class="stars">
+      <li class="star" title="Poor" data-value="1">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Fair" data-value="2">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Good" data-value="3">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="Excellent" data-value="4">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+      <li class="star" title="WOW!!!" data-value="5">
+        <i class="fa fa-star fa-fw"></i>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="success-box">
+    <div class="clearfix"></div>
+  
+    <div class="text-message"></div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  
+</section>
+	<div class="detailsP">
+	  <h3 class="names" >Ari</h3>
+	<p class="ubicationP">LONDON-ENGLAND</p>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="checkbox" name="favourite6" id="favourite6" class="custom">
+              <label class="favB" for="favourite6"><span class="  ui-icon-heart ui-btn-icon-left"></span></label>
+           </fieldset>
+	 
+		</div>
+
+	</div>
+	    <a class="commentsp" >view comment</a>
+	  <button class="pricelabel ui-btn ui-btn-inline">60£/night</button>
+	  <p>________________________________________________________________________________________________________________________________________</p>
+	
+	<h4>About me</h4>
+	  
+	  <p>Tobby is from argentina but actually is living in london city , we would like to walk around the city meanwhile momy is at work.</p>
+	  
+	  <h4>service</h4>
+	  
+	  <button class=" service ui-btn ui-btn-inline ">host</button>
+	   <button class="service ui-btn ui-btn-inline">Walking <br>
+dog</button>
+	  
+	  
+	  
+	  
+	  <label for="text-basic">leave comment</label>
+	  <textarea cols="40" rows="8" name="textarea" id="textarea6"></textarea>
+	  <button class="ui-btn ui-btn-inline">Submmit</button>
+	
+	  <form>
+    <input class="ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Book Now">
+		  
+		  <div class="contactp">
+    <input  class=" ui-input-btn ui-btn ui-btn-b" type="button" data-inline="true" value="Contact ">
+			  </div>
+		  
+    
+</form>
+	
+	
+	
+	
+	
+	</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+</div> <!-- /page  ariprofile-->
+	
+	
+	
+	
+	
+	
+	
+
+		
+
+	
+	
+	
+	
+<!-- This is page AR-->
+		<div data-role="page" id="PageAR">
+		<!-- jQuery Mobile page content goes here -->
+		
+	 <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1> AR CODE</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+
+		<div role="main" class="ui-content">
+			<a href="../ARCode/ARpage_box.html" rel="external" id="position"><img src="../ARCode/images/scan.jpg"></a>
+
+		</div>
+
+		
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> 
+	
+	 <!-- /page RQ code-->
+	
+	
+	<div data-role="page" id="PageV">
+		<!-- jQuery Mobile page content goes here -->
+		
+	 <div data-role="header" class="centeredGradient" data-position="fixed" >
+    
+         <a href="#demo-intro"  data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
+		
+   <h1 id="video"> VIDEO</h1>
+	 <a href="#" class="ui-btn ui-icon-bars ui-corner-all ui-btn-icon-notext">Icon only</a>
+  </div>
+
+
+		<div  role="main" class="ui-content">
+			
+			<div id="back1">
+			  <iframe id="position1" width="50%" height="30%" src="https://www.youtube.com/embed/WF-b5w4LjTo" frameborder="1" allowfullscreen></iframe>
+  
+				</div>
+				
+				
+				
+		</div>
+
+	
+		<div data-role="footer" data-position="fixed">
+			
+				   <div data-role="navbar">
+          <ul class="footer-menu">
+            <li><a href="messages.html" data-icon="comment" data-icon-pos="top">Message</a></li>
+            <li><a href="#favourites" data-icon="heart" data-icon-pos="top">Favorite</a></li>
+            <li><a href="#" data-icon="calendar" data-icon-pos="top">Bookings</a></li>
+            <li><a href="#" data-icon="user" data-icon-pos="top">Profile</a></li>
+            <li><a href="#page1" data-icon="home" data-icon-pos="top">Home</a></li>
+          </ul>
+        </div>
+			 			
+		
+		</div>
+	</div> <!-- /page  videooo -->	
+	
+	
+	
+	
+
+</body>
+
+</html>
